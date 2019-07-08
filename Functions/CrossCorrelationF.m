@@ -27,6 +27,9 @@ V = 1;
 
 
 
+
+
+
 VV = TimeWindow; %% (400)CC window(+/-ms)
 M = VV +VV;
 CO = 1; % (420)Processing 
@@ -83,6 +86,12 @@ LA = ME + SD;LB = ME -SD;
 YM = round(MAX+(MAX/5));
 KP = MAX/ME ; KT = MIN/ME ;DP = (MAX-ME)/SD ; DT = (ME-MIN)/SD;
 
+DP = round(DP*100)/100;
+KP= round(DP*100)/100 ;
+DT= round(DP*100)/100;
+KT= round(DP*100)/100 ;
+
+
 partes = cell2mat(varargin) ;
 newname = strcat(name1(1:end-4),'-',name2(1:end-4),'_CC');
 
@@ -95,6 +104,33 @@ if sum(size(partes))==2 && mosaico~=1
     ylabel('Percentage of Intervals')
     title('CrossCorrelation '+string(name1(1:end-4))+'(A) and '+string(name2(1:end-4))+'(B)')
     set(figura,'Visible',VisibleFigure)
+
+    cuentas = histcounts(y(y<1000)-TimeWindow,'BinWidth',BW,'Normalization','probability');
+    
+    [M , I] = max(cuentas);
+    
+    temp = cuentas;
+    ran = round(TimeWindow*0.05);
+    temp([-ran:ran]+I) = [];
+    
+    StrenghIndex = M/mean(temp);
+    DetectivityIndex = M/std(temp);
+    
+    annotation('textbox',[.75 .92-1*0.04 0.05 .04],'String',"DP")
+    annotation('textbox',[.80 .92-1*0.04 0.1 .04],'String',num2str(DP))
+    annotation('textbox',[.75 .92-2*0.04 0.05 .04],'String',"KP")
+    annotation('textbox',[.80 .92-2*0.04 0.1 .04],'String',num2str(KP))
+    
+    annotation('textbox',[.135 .92-1*0.04 0.05 .04],'String',"DT")
+    annotation('textbox',[.185 .92-1*0.04 0.1 .04],'String',num2str(DT))
+    annotation('textbox',[.135 .92-2*0.04 0.05 .04],'String',"KT")
+    annotation('textbox',[.185 .92-2*0.04 0.1 .04],'String',num2str(KT))
+    
+
+    
+    
+    
+
     
     S1 = y;
     if SaveFig
@@ -224,7 +260,7 @@ end
              end
 
             ax(i) = subplot(QQ,PP,i,'parent',panhandles);
-            CrossCorrelationF(SavePdf,SaveFig,TimeFormat,BW,TimeWindow,data1(inicioA:finalA)*10,data2(inicioB:finalB)*10,name1,name2,0,6,i,length(data1),length(data2));
+            CrossCorrelationF(SavePdf,SaveFig,TimeFormat,BW,TimeWindow,data1(inicioA:finalA),data2(inicioB:finalB),name1,name2,0,6,i,length(data1),length(data2));
 
             inicios = [ i*10000*60 data1(inicioA) data2(inicioB);...
                         i*10000*60 diferenciaA diferenciaB]/(10000*60);

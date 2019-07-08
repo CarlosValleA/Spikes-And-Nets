@@ -16,7 +16,7 @@ function Frecs = findmax(f,P)
 
 
 
-[pks,locs,w] = findpeaks(P,'MinPeakWidth',1,'MinPeakDistance',3/0.2);
+[pks,locs,w] = findpeaks(P,'MinPeakWidth',0.5,'MinPeakDistance',0.4);
 
 
 [pks , I] =  sort(pks,'descend');
@@ -25,7 +25,7 @@ locs = locs(I);
 f = f(locs);
 
 
-fr = f>=2;
+fr = f>=0.5;
 
 pks(fr==0) = [];
 f(fr==0) = [];

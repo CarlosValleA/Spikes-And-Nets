@@ -22,15 +22,8 @@ D = 0;
 
 if D == 0
     T = 'Phase';
-    RI = 1;
-    RF = N;
-end
-if D ==1
-    T = 'Phase';
-%   RI = input('Start Spike: ');
-%   RF = input('End Spike: ');
-    RI = 1+i;
-    RF = 500+i;
+    RI = 2;
+    RF = N-1;
 end
 
 
@@ -148,8 +141,8 @@ if sum(size(partes))==2 & mosaico~=1
     figura = figure;
     if length(grafico)~=0
         plot(grafico(:,1),grafico(:,2),'k')
-        xlabel('n+1 ISI (' + string(char(TimeFormat))+ ')')
-        ylabel('n ISI (' + string(char(TimeFormat)) + ')')
+        xlabel('(n+1)-n ISI (' + string(char(TimeFormat))+ ')')
+        ylabel('(n+2)-(n+1) ISI (' + string(char(TimeFormat)) + ')')
         grid on
         set(figura,'Visible',visible_figure)
     end
@@ -183,8 +176,8 @@ if sum(size(partes))>2
    
     if length(grafico)~=0
         plot(grafico(:,1),grafico(:,2),'k')
-        xlabel('n+1 ISI (' + string(char(TimeFormat))+ ')')
-        ylabel('n ISI (' + string(char(TimeFormat)) + ')')
+        xlabel('(n+1)-n ISI (' + string(char(TimeFormat))+ ')')
+        ylabel('(n+2)-(n+1) ISI (' + string(char(TimeFormat)) + ')')
         grid on
         
     end

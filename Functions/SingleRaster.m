@@ -5,7 +5,7 @@
 % 
 %  SingleRaster1(data,22000,'170517Bg1c1.txt',2)
 
-function SingleRaster(TimeFormat,data,Hz,name,mosaico)
+function SingleRaster(TimeFormat,data,name,mosaico)
 
 
 
@@ -33,7 +33,10 @@ for h = 1:mosaico
         subplot(15,1,i,'parent',panhandle);
         A =(data(inicio:final));
         if A(1)<A(end)
-            stem(A,ones(1,length(A)),'Marker','none')
+            %stem(A,ones(1,length(A)),'Marker','none')
+            
+            
+            plot_spikes([0 1],A,'blue')
             xlim([A(1) A(end)])
             ylim([-0.5 1.5])
             set(gca,'XTick',linspace(A(1),A(end),4))
@@ -58,4 +61,15 @@ for h = 1:mosaico
         
         
 end
+
+
+
+function plot_spikes(range,data,color)
+hold on
+for i = 1:length(data)
+     plot([data(i) data(i)],range,color)
 end
+hold off
+
+
+

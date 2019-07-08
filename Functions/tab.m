@@ -51,7 +51,9 @@ switch n
         set(handles.Previous,'visible','on')
         set(handles.RUN,'visible','off')
         set(handles.Mosaic,'visible','off')
-        
+        set(handles.maxf,'visible','off')
+        set(handles.maxfText,'visible','off')
+
         %set(handles.Analysis,'visible','off')
         set(handles.TIMETEXT,'visible','off')
         
@@ -164,6 +166,8 @@ switch n
         set(handles.Groups6,'visible','off')
         set(handles.Groups7,'visible','off')
         set(handles.TimeFormatNumber,'Visible','off')
+                set(handles.maxf,'visible','off')
+        set(handles.maxfText,'visible','off')
 
        % set(handles.PanelMethods,'visible','off')
         %set(handles.uitableMethods,'Visible','off')
@@ -234,6 +238,8 @@ switch n
         
         set(handles.TimeFormat,'visible','on')
         set(handles.FrecuencyFormat,'visible','on')
+                set(handles.maxf,'visible','on')
+        set(handles.maxfText,'visible','on')
  
         %set(handles.FrecuencyFormatNumber,'visible','on')
         set(handles.spikes,'visible','off')
@@ -292,6 +298,8 @@ switch n
         set(handles.BinWidthText,'Visible','off')
         set(handles.ConnectivityMethods,'Visible','off')
         set(handles.TimeFormatNumber,'Visible','off')
+                set(handles.maxf,'visible','off')
+        set(handles.maxfText,'visible','off')
 
 
         

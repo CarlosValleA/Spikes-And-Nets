@@ -70,7 +70,7 @@ end
 
 
 if v==8    
-    set(0,'DefaultTextFontSize',10)
+    set(0,'DefaultTextFontSize',9)
     for i =1:N
         dim1 =[.55 .92-i*0.045 0.14 .045];
         annotation('textbox',dim1,'String',string(array(i,1)))

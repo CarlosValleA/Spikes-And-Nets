@@ -10,7 +10,7 @@
 % 
 % TripleRaster1(a,b,c,Hz,name1,name2,name3)
 
-function TripleRaster(TimeFormat,A,B,C,Hz,name1,name2,name3,mosaico)
+function TripleRaster(TimeFormat,A,B,C,name1,name2,name3,mosaico)
 
 
 % A = A/Hz;
@@ -75,16 +75,32 @@ for hh = 1:mosaico
         data3 = C(inicioC:finalC);
         if data1(1)<data1(end) | data2(1)<data2(end) | data3(1)<data3(end)
             hold on
-            stem(data1,ones(1,length(data1)),'Marker','none','Color','blue')
+
+            
+            
+%             stem(data1,ones(1,length(data1))*0.5,'BaseValue',2,'Marker','none','Color','blue')
+%             set(gca,'ytick',[])
+%             stem(data2,ones(1,length(data2))*0.5,'BaseValue',0,'Marker','none','Color','red')
+%             set(gca,'ytick',[])
+%             stem(data3,ones(1,length(data3))*-0.5,'Marker','none','Color','green')
+%             set(gca,'ytick',[])
+%             
+            
+            
+            plot_spikes([0 0.5],data1,'blue')
             set(gca,'ytick',[])
-            stem(data2,ones(1,length(data2)),'Marker','none','Color','red')
+            plot_spikes([0.5 1],data2,'red')
             set(gca,'ytick',[])
-            stem(data3,ones(1,length(data3)),'Marker','none','Color','green')
+            plot_spikes([-0.5 0],data3,'green')
             set(gca,'ytick',[])
+            
+            
+            
+            
             xlim([min([data1(1) data2(1) data3(1)]), max([data1(end) data2(end) data3(end)])])
             set(gca,'XTick',linspace(min([data1(1) data2(1) data3(1)]),max([data1(end) data2(end) data3(end)]),4))
             set(gca,'xticklabel',round(linspace(min([data1(1) data2(1) data3(1)]),max([data1(end) data2(end) data3(end)]),4),2,'significant'))
-            ylim([-0.5 1.5])
+            %ylim([-0.5 1.5])
             hold off
         else
              stem([ ],[],'Marker','none')
@@ -127,4 +143,14 @@ end
 
 
 
+function plot_spikes(range,data,color)
+hold on
+for i = 1:length(data)
+     plot([data(i) data(i)],range,color)
 end
+hold off
+
+
+
+
+

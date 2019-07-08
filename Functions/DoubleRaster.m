@@ -9,7 +9,7 @@
 % 
 % DoubleRaster1(a,b,Hz,name1,name2)
 
-function DoubleRaster(TimeFormat,data1,data2,Hz,name1,name2,mosaico)
+function DoubleRaster(TimeFormat,data1,data2,name1,name2,mosaico)
 
 % data1 = data1/Hz;  % segundos 
 % data1 = data1/60;
@@ -53,11 +53,13 @@ for h = 1:mosaico
         B = data2(inicioB:finalB);
         if A(1)<A(end) | B(1)<B(end)
             hold on
-            stem(A,ones(1,length(A)),'Marker','none','Color','blue')
+            stem(A,ones(1,length(A))*0.5,'Marker','none','Color','blue')
             set(gca,'ytick',[])
-            stem(B,ones(1,length(B)),'Marker','none','Color','red')
+            stem(B,ones(1,length(B))*-0.5,'Marker','none','Color','red')
             set(gca,'ytick',[])
-            ylim([-0.5 1.5])
+            
+           
+            ylim([-0.5 0.5])
             xlim([min([A(1) B(1)]), max([A(end) B(end)])])
             set(gca,'XTick',linspace(min([A(1) B(1)]),max([A(end) B(end)]),4))
             set(gca,'xticklabel',round(linspace(min([A(1) B(1)]),max([A(end) B(end)]),4),2,'significant'))   
@@ -87,7 +89,7 @@ for h = 1:mosaico
     xlabel("Time (" + TimeFormat + ")",'FontSize',10)
     set(gcf,'Units','inches',...
         'Position',[0 0 8 11])
-    set(gca,'fontsize',12) 
+    set(gca,'fontsize',10) 
     titulo = {'Double Raster plot ' + string(name1)+ ' (Blue) ','                               '+string(name2)+' (Red) '};
     
     a = annotation('textbox',[.35 .5 0.5 0.5],'String',titulo,'FitBoxToText','on');

@@ -152,8 +152,8 @@ if sum(size(partes))==2 & mosaico~=1
          scatter(grafico(:,1),grafico(:,2),'MarkerEdgeColor',[0 .5 .5],...
         'MarkerFaceColor',[0 .7 .7],...
         'LineWidth',1.5)
-        xlabel('n+1 ISI (' + string(char(TimeFormat))+ ')')
-        ylabel('n ISI (' + string(char(TimeFormat)) + ')')
+        xlabel('(n+1)-n ISI (' + string(char(TimeFormat))+ ')')
+        ylabel('(n+2)-(n+1) ISI (' + string(char(TimeFormat)) + ')')
         grid on
         set(figura,'Visible',visible_figure)
         
@@ -196,8 +196,8 @@ if sum(size(partes))>2
          scatter(grafico(:,1),grafico(:,2),'MarkerEdgeColor',[0 .5 .5],...
          'MarkerFaceColor',[0 .7 .7],...
          'LineWidth',1.5)
-        xlabel('n+1 ISI (' + string(char(TimeFormat))+ ')')
-        ylabel('n ISI (' + string(char(TimeFormat)) + ')')
+        xlabel('(n+1)-n ISI (' + string(char(TimeFormat))+ ')')
+        ylabel('(n+2)-(n+1) ISI (' + string(char(TimeFormat)) + ')')
          grid on
         
         

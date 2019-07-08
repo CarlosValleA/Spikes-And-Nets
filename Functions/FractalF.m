@@ -110,6 +110,7 @@ figura = figure;
 plot(data(1:Z))
 xlim([0 Z])
 ylim([0.9 1.5])
+ylabel('Sequential Fractal Dimension (SFD)')
 xlabel('Interval Windows')
 
  

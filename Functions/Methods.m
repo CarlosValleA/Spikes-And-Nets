@@ -12,6 +12,7 @@ programa = get(handles.Title,'UserData');
 %Frecuency = str2num(get(handles.FrecuencyFormatNumber,'string'));
 TimeFormat = get(handles.TimeFormatNumber,'value');
 %BW = str2num(get(handles.BinWidthValue,'string'));  % BinWidth
+maxf = str2num(get(handles.maxf,'string'));
 
 
 Scale = 10;
@@ -424,20 +425,20 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
         end
         Nfolder = Nfolder+1;
         if isempty(foldername{i})
-            mkdir(Folder,'No name')
-            groupname = strcat(Folder,'No name');
-            cd('No name')
+            mkdir(Folder,'DP No name')
+            groupname = strcat(Folder,'DP No name');
+            cd('DP No name')
             
         else
-            if exist(foldername{i},'dir')
+            if exist(strcat('DP ',foldername{i}),'dir')
             else
-                mkdir(Folder,foldername{i})
-                groupname = strcat(Folder,foldername{i});
+                mkdir(Folder,strcat('DP ',foldername{i}))
+                groupname = strcat(Folder,strcat('DP ',foldername{i}));
                 
                 
             end
         end
-        cd(foldername{i})
+        cd(strcat('DP ',foldername{i}))
         
         set(handles.TEXTFolder,'string','Folder: '+string(foldername{i})+'  ('+string(Nfolder)+' of '+string(FolderCount)+ ')')
         
@@ -478,7 +479,7 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
                 %tic
                 if Raster ==1 & Single ==1
                     try
-                        SingleRaster(TimeFormat,data,Hz,char(nombre),PartesRaster);
+                        SingleRaster(TimeFormat,data,char(nombre),PartesRaster);
                     end
                 end
                 %times{1,j} = [toc length(data)];
@@ -516,12 +517,12 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
                 %tic
                 if get(handles.AS,'value')==1
                     try
-                        AutoEspectroF(PDF_AS,FIG_AS,data,char(file(j)),0,SN_AS);
+                        AutoEspectroF(maxf,PDF_AS,FIG_AS,TimeFormat,data,char(file(j)),0,SN_AS);
                         %saveas(gcf,strcat(nombre(1:end-4),'_AS'),'pdf')
                         close figure 1
                         
                         if SN_AS>1
-                            AutoEspectroF(PDF_AS,FIG_AS,data,char(file(j)),1,SN_AS);
+                            AutoEspectroF(maxf,PDF_AS,FIG_AS,TimeFormat,data,char(file(j)),1,SN_AS);
                             %saveas(gcf,strcat(nombre(1:end-4),'_AS','time'),'pdf')
                             close figure 1
                         end
@@ -613,7 +614,7 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
                 %tic
                 if Raster ==1 & Single ==1
                     try
-                        SingleRaster(TimeFormat,data,Hz,char(nombre),PartesRaster);
+                        SingleRaster(TimeFormat,data,char(nombre),PartesRaster);
                     end
                 end
                 %times{1,j} = [toc length(data)];
@@ -651,12 +652,12 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
                 %tic
                 if get(handles.AS,'value')==1
                     try
-                        AutoEspectroF(PDF_AS,FIG_AS,data,char(file(j)),0,SN_AS);
+                        AutoEspectroF(maxf,PDF_AS,FIG_AS,TimeFormat,data,char(file(j)),0,SN_AS);
                         %saveas(gcf,strcat(nombre(1:end-4),'_AS'),'pdf')
                         close figure 1
                         
                         if SN_AS>1
-                            AutoEspectroF(PDF_AS,FIG_AS,data,char(file(j)),1,SN_AS);
+                            AutoEspectroF(maxf,PDF_AS,FIG_AS,TimeFormat,data,char(file(j)),1,SN_AS);
                             %saveas(gcf,strcat(nombre(1:end-4),'_AS','time'),'pdf')
                             close figure 1
                         end
@@ -728,6 +729,7 @@ if SingleNeuron==1 & (get(handles.ISIH,'value')==1 | get(handles.AC,'value')==1 
 
             
         end
+        pause(1)
         pdefes = dir('*.pdf');
         largo = length(pdefes);
         if largo>0
@@ -779,9 +781,9 @@ end
                 cd('CC No name')
                 
             else
-                if exist(strcat('CC',foldername{i}),'dir')
+                if exist(strcat('CC ',foldername{i}),'dir')
                 else
-                    mkdir(Folder,strcat('CC',foldername{i}))
+                    mkdir(Folder,strcat('CC ',foldername{i}))
                     
                     groupname = strcat(Folder,foldername{i});
                     
@@ -834,7 +836,7 @@ end
                             
                             if Raster==1 &Double==1
                                 
-                                DoubleRaster(TimeFormat,data1,data2,Hz,char(nombre1),char(nombre2),PartesRaster)
+                                DoubleRaster(TimeFormat,data1,data2,char(nombre1),char(nombre2),PartesRaster)
                                 
                                 
                             end
@@ -847,7 +849,7 @@ end
                         else
                             if Raster==1 &Double==1
                                 try
-                                    DoubleRaster(TimeFormat,data1,data2,Hz,char(nombre1),char(nombre2),PartesRaster)
+                                    DoubleRaster(TimeFormat,data1,data2,char(nombre1),char(nombre2),PartesRaster)
                                     
                                 end
                             end
@@ -886,7 +888,7 @@ end
                             
                             if Raster==1 &Double==1
                                 try
-                                    DoubleRaster(TimeFormat,data1,data2,Hz,char(nombre1),char(nombre2),PartesRaster)
+                                    DoubleRaster(TimeFormat,data1,data2,char(nombre1),char(nombre2),PartesRaster)
                                     
                                 end
                             end
@@ -900,7 +902,7 @@ end
                             
                             if Raster==1 & Double==1
                                 try
-                                    DoubleRaster(TimeWindow,data1,data2,Hz,char(nombre1),char(nombre2),PartesRaster)
+                                    DoubleRaster(TimeWindow,data1,data2,char(nombre1),char(nombre2),PartesRaster)
                                     
                                 end
                             end
@@ -928,9 +930,10 @@ end
                     
                     
                 end
+                pause(1)
                 pdefes = dir('*.pdf');
                 largo = length(pdefes);
-                
+                    
                 
                 if largo ~=0
                     for xx = 1:largo
@@ -1039,7 +1042,7 @@ end
                             
                             if Raster==1 & Triple ==1
                                 try
-                                    TripleRaster(TimeFormat,data1,data2,data3,Hz,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
+                                    TripleRaster(TimeFormat,data1,data2,data3,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
                                     
                                 end
                             end
@@ -1058,7 +1061,7 @@ end
                             
                             if Raster==1 & Triple ==1
                                 try
-                                    TripleRaster(TimeFormat,data1,data2,data3,Hz,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
+                                    TripleRaster(TimeFormat,data1,data2,data3,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
                                     
                                 end
                             end
@@ -1106,7 +1109,7 @@ end
                             
                             if Raster==1 & Triple ==1
                                 try
-                                    TripleRaster(TimeFormat,data1,data2,data3,Hz,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
+                                    TripleRaster(TimeFormat,data1,data2,data3,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
                                     
                                 end
                             end
@@ -1126,7 +1129,7 @@ end
                             
                             if Raster==1 & Triple ==1
                                 try
-                                    TripleRaster(TimeFormat,data1,data2,data3,Hz,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
+                                    TripleRaster(TimeFormat,data1,data2,data3,char(nombre1),char(nombre2),char(nombre3),PartesRaster)
                                     
                                 end
                             end
@@ -1151,6 +1154,7 @@ end
        
                     
                 end
+                pause(1)
                 pdefes = dir('*.pdf');
                 largo = length(pdefes);
                 if largo ~=0

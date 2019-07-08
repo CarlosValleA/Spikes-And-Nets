@@ -143,7 +143,7 @@ if sum(size(partes))==2 & mosaico~=1
     histogram(y,'BinWidth',BW,'Normalization','probability');
 
     xlim([0 TimeWindow])
-    xlabel('Time Delay ('+string(TimeFormat)+')')
+    xlabel('Delay Time ('+string(TimeFormat)+')')
     ylabel('Percentage of Intervals')
     title('InterSpike histogram '+string(name(1:end-4)))
     set(figura,'Visible',figure_visible)

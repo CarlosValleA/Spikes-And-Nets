@@ -7,17 +7,19 @@
 
 
 
-function [P Frecs] =AutoEspectroF(SavePdf,SaveFig,data,name,mosaico,varargin)
+function [P Frecs] =AutoEspectroF(maxf,SavePdf,SaveFig,TimeFormat,data,name,mosaico,varargin)
 
-% switch TimeFormat
-%     case 'ms'
-%         data;
-%     case 'sec'
-%         data = data/1000;
-%     case 'min'
-%     case 'days'
-% end
-% 
+switch TimeFormat
+    case 'ms'
+        data;
+    case 'sec'
+        data = data*1000;
+    case 'min'
+        data = data*1000*60;
+    case 'days'
+        data = data*1000*60*24;
+end
+
 
 
 
@@ -26,11 +28,12 @@ visibleFigure = 'off';
 name = char(name);
 data = data*0.1;
 N = length(data);
-D = zeros(5000,1);
+bg  = 5000;
+D = zeros(bg,1);
 for i = 1:N
     for k = i+1:N
         dife = round(data(k)-data(i));
-        if dife<=5000 & dife~=0
+        if dife<=bg & dife~=0
             D(dife)=D(dife)+1;
         end
     end
@@ -38,20 +41,21 @@ end
 
 E = D;
 SU = sum(D(:));
-ME = SU/5000;
+ME = SU/bg;
 E = E - ME;
 
 % Fourier
 C = 0; S = 0;
 
-for I = 1:500
-    for G = 1:5000
-        C = C + (E(G)*cos(I*2*pi*G/5000));
-        S = S + (E(G)*sin(I*2*pi*G/5000));
+max_f = maxf*5;
+for I = 1:max_f
+    for G = 1:bg
+        C = C + (E(G)*cos(I*2*pi*G/bg));
+        S = S + (E(G)*sin(I*2*pi*G/bg));
     end
-    C = C/500;
-    S = S/500;
-    P(I) = ((S.*S)+(C.*C))*500;
+    C = C/max_f;
+    S = S/max_f;
+    P(I) = ((S.*S)+(C.*C))*max_f;
 end
 
 
@@ -77,26 +81,8 @@ armonica = a./b;
 armonica = conv(P,ones(1,5)/5,'same'); % average movil
 
 
+
     function [tabla t low high] = maxi(f,P,v)
-%         pks = [];
-%         locs = [];
-%         for i = 1:10;
-%             [M I] = max(P);
-%             pks = [pks; M];
-%             locs = [locs; I];
-%             if I>=4 & I<=496
-%                 P((-3+I):(I+3))=0;
-%             else
-%                 if I == 1
-%                     P(I:4) =0;
-%                 else
-%                     P((-1+I):end)==0;
-%                 end
-%                   
-%             end
-%         end
-% 
-%         Frecs = [log(pks) locs*5];
         
         Frecs = findmax(f',P');
         
@@ -138,12 +124,12 @@ newname = strcat(name(1:end-4),'_AS');
 if sum(size(partes))==2 && mosaico~=1
     
     figura =figure;
-    f = 0.2*(0:499);
+    f = 0.2*(0:max_f-1);
     hold on
     ThreshHold =  mean(log(armonica)) + std(log(armonica));
     plot(f,log(armonica))
     plot(f,ones(1,length(armonica))*ThreshHold)
-    xlim([0 100])
+    xlim([0 max_f*0.2])
     %text(diff(f([1 end]))/2,ThreshHold+0.1,'$\bar{X} + \sigma $ ','interpreter','latex')
 
     hold off
@@ -170,8 +156,9 @@ if sum(size(partes))==2 && mosaico~=1
 end
 
 if sum(size(partes))>2
-    f = 0.2*(0:499);
+    f = 0.2*(0:max_f-1);
     plot(f,log(armonica))
+    xlim([0 max_f*0.2])
     xlabel('Frequency (Hz)')
     ylabel('Log of S. Density')
 
@@ -221,7 +208,7 @@ if mosaico ==1
         end
         
         ax(i) = subplot(QQ,PP,i,'parent',panhandles);
-        AutoEspectroF(SavePdf,SaveFig,data((inicio:final))*10,name,0,6,i,N);
+        AutoEspectroF(maxf,SavePdf,SaveFig,'ms',data((inicio:final))*10,name,0,6,i,N);
         intervalos = [intervalos;inicio final];
         inicio=final;
     
