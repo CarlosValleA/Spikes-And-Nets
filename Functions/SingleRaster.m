@@ -33,10 +33,10 @@ for h = 1:mosaico
         subplot(15,1,i,'parent',panhandle);
         A =(data(inicio:final));
         if A(1)<A(end)
-            %stem(A,ones(1,length(A)),'Marker','none')
+            stem(A,ones(1,length(A)),'Marker','none')
             
             
-            plot_spikes([0 1],A,'blue')
+            %plot_spikes([0 1],A,'blue')
             xlim([A(1) A(end)])
             ylim([-0.5 1.5])
             set(gca,'XTick',linspace(A(1),A(end),4))

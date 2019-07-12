@@ -138,9 +138,9 @@ newname = strcat(name(1:end-4),'_ISI');
 
 if sum(size(partes))==2 & mosaico~=1
 
-
+    
     figura = figure;
-    histogram(y,'BinWidth',BW,'Normalization','probability');
+    histogram(y(y<=TimeWindow),'BinWidth',BW,'Normalization','probability');
 
     xlim([0 TimeWindow])
     xlabel('Delay Time ('+string(TimeFormat)+')')
@@ -156,17 +156,19 @@ if sum(size(partes))==2 & mosaico~=1
     %save(newname, '-struct', 'S1')
     
     if SaveFig
+ 
         savefig(figura,strcat(newname,'.fig'))
+     
     end
     if SavePdf
         saveas(figura,strcat(name(1:end-4),'_IS'),'pdf')
     end
-
+    
 end
 
 if sum(size(partes))>2
 
-    histogram(y,'BinWidth',BW,'Normalization','probability');
+    histogram(y(y<=TimeWindow),'BinWidth',BW,'Normalization','probability');
 
     xlim([0 TimeWindow])
     xlabel('Time Delay ('+string(TimeFormat)+')')
